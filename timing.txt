@@ -1,0 +1,3 @@
+Time to preproc + get distance between 2 images: 1.4592337608337402
+Time to embed 1 image: 0.023068666458129883
+Time to preproc 1 image: 0.0127410888671875
