@@ -1,0 +1,11 @@
+logs
+*pkl
+*pyc
+.vscode
+*.sh
+runs
+.vscode
+
+/wandb
+
+wandb
