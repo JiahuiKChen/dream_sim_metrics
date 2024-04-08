@@ -1,0 +1,2 @@
+ImageNet_LT_val_90	tensor([1.2749], device='cuda:0')
+ImageNet_LT_test_90	tensor([1.3726], device='cuda:0')
