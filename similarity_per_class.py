@@ -1,6 +1,6 @@
 import os 
 os.environ["CUDA_DEVICE_ORDER"]="PCI_BUS_ID"   # see issue #152
-os.environ["CUDA_VISIBLE_DEVICES"]="5"
+os.environ["CUDA_VISIBLE_DEVICES"]="7"
 
 import torch
 from dreamsim import dreamsim
@@ -19,9 +19,9 @@ synth_img_root = "/datastor1/jiahuikchen/synth_ImageNet/"
 # ]
 synth_img_dirs_0 = [f"{synth_img_root}dropout_90/", f"{synth_img_root}rand_img_cond_90/"] # crashed on MIDI 1 tmux 1
 synth_img_dirs_1 = [f"{synth_img_root}cutmix_90/", f"{synth_img_root}mixup_90/"] # MIDI 3 tmux 2
-synth_img_dirs_2 = [f"{synth_img_root}embed_cutmix_90/", f"{synth_img_root}embed_mixup_90/"] # A40 tmux 2
+synth_img_dirs_2 = [f"{synth_img_root}embed_cutmix_90/", f"{synth_img_root}embed_mixup_90/"] # embed_cutmix_90 A40 tmux 2
 synth_img_dirs_3 = [f"{synth_img_root}embed_cutmix_dropout_90/", f"{synth_img_root}embed_mixup_dropout_90/"] # MIDI 3 tmux 1
-synth_img_dirs_4 = [f"{synth_img_root}cutmix_dropout_90/", f"{synth_img_root}mixup_dropout_90/"] # A40 tmux 3
+synth_img_dirs_4 = [f"{synth_img_root}cutmix_dropout_90/", f"{synth_img_root}mixup_dropout_90/"] # cutmix_dropout_90 A40 tmux 3
 
 real_dirs = ["/data/jiahuic/ImageNetLT_val_test/ImageNet_LT_val_90/", 
     "/data/jiahuic/ImageNetLT_val_test/ImageNet_LT_test_90/"
@@ -79,6 +79,7 @@ def calc_L2_pairwise(img_dirs, out_file_name):
 
 # loads list of embeddings from chkpt_path, calculate and saves avg pariwise L2
 def load_embeds_calc_L2(chkpt_path, out_file_name):
+    print(f"Loading embeddings from:    {chkpt_path}")
     embed_list = torch.load(chkpt_path)
     avg_dist = avg_L2_distance(embed_list)
 
@@ -105,8 +106,16 @@ def load_embeds_calc_L2(chkpt_path, out_file_name):
 # real validation and test set L2
 # calc_L2_pairwise(real_dirs, "avg_pairwise_dists_real.txt")
 
-# MIDI 1 tmux 1 AND A40 TMUX 4 
-# load dropout 90 embeddings, calculate L2
-load_embeds_calc_L2("/datastor1/jiahuikchen/dreamsim_metrics/dropout_90.pt", "avg_pairwise_dists_dropout_90.txt")
-# rand img 90 (crashed and was linked w dropout)
-calc_L2_pairwise([f"{synth_img_root}rand_img_cond_90/"] , "avg_pairwise_dists_rand_img_90.txt")
+# A40 TMUX 4 
+# # load dropout 90 embeddings (since deleted??), calculate L2
+# load_embeds_calc_L2("/datastor1/jiahuikchen/dreamsim_metrics/dropout_90.pt", "avg_pairwise_dists_dropout_90.txt")
+# # rand img 90 (crashed and was linked w dropout)
+# calc_L2_pairwise([f"{synth_img_root}rand_img_cond_90/"] , "avg_pairwise_dists_rand_img_90.txt")
+
+# A40 tmux 2 
+# load embed_mixup embeddings, calculate L2
+# load_embeds_calc_L2("/datastor1/jiahuikchen/dreamsim_metrics/embed_mixup_90.pt", "avg_pairwise_dists_embed_mixup_90.txt")
+
+# A40 tmux 3
+# load mixup_dropout embeddings, calculate L2
+load_embeds_calc_L2("/datastor1/jiahuikchen/dreamsim_metrics/mixup_dropout_90.pt", "avg_pairwise_dists_mixup_dropout_90.txt")

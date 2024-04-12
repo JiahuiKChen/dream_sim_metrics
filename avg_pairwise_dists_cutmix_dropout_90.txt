@@ -1,0 +1,1 @@
+cutmix_dropout_90       tensor([0.0029], device='cuda:0')
