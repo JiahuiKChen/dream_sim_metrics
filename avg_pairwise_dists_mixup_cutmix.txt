@@ -1,0 +1,2 @@
+cutmix_90	tensor([0.0029], device='cuda:0')
+mixup_90	tensor([0.0029], device='cuda:0')
