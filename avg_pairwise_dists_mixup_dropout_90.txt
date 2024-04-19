@@ -1,0 +1,1 @@
+mixup_dropout_90.pt	tensor([0.0029], device='cuda:0')

@@ -1,0 +1,1 @@
+rand_img_cond_90	tensor([0.0029], device='cuda:0')
